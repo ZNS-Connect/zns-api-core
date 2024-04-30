@@ -5,7 +5,7 @@ import { ResponsePayload, RequestPayload } from "../../types"
 // ** import custom utils
 import { Util } from "../../utils"
 // ** import custom constanats
-import { ONCHAIN_CONFIG } from "../../constant"
+import { ONCHAIN_CONFIG, APP } from "../../constant"
 // ** import custom libraries
 import { ZnsRegistry } from "../../core"
 // ** import custom types
@@ -35,7 +35,7 @@ class DataController {
 
             const metadata: Metadata = {
                 name: domain,
-                description: "A domain on ZNS Connect Name Service",
+                description: APP.DOMAIN_NFT_DESCRIPTION,
                 image: this.getImage(domain, tld, Util.toNumber(chain)),
                 length: domain.length
             }
