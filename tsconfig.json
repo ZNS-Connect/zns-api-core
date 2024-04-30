@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+    "target": "ES2020",
+    "outDir": "dist",
+    "lib": ["DOM", "ES5"],
+    "declaration": true,
+    "strict": false,
+    "allowJs": true,
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "typeRoots": ["./node_modules/@types"],
+    "esModuleInterop": true,
+    "sourceMap": false,
+    "skipLibCheck": true,
+  },
+  "include": ["src/**/*", "src/**/*.html", "./index.ts"]
+}
