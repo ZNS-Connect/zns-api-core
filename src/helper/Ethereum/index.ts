@@ -29,7 +29,7 @@ class EthereumHelper {
 
     /**
      * 
-     * @param {String}value 
+     * @param {String} value 
      * @returns {String}
      */
     static encodeBytes32String = (value: string) => {

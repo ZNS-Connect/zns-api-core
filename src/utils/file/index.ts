@@ -1,5 +1,10 @@
 class FileUtil {
-    static getFileTypeFromContentType = (contentType: string) => {
+    /**
+     * 
+     * @param {String} contentType 
+     * @returns {String}
+     */
+    static getFileTypeFromContentType = (contentType: string): string => {
         return contentType.split('/')[1]
     }
 }

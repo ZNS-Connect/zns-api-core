@@ -1,3 +1,4 @@
+// ** import external types
 import { Request, ResponseObject, ResponseToolkit } from '@hapi/hapi'
 
 // ** import custom types
@@ -6,9 +7,9 @@ import { ResponsePayload } from '../../types'
 class ResponseUtil {
     /**
      * 
-     * @param request 
-     * @param reply 
-     * @param error 
+     * @param {Request} request 
+     * @param {ResponseToolkit} reply 
+     * @param {Error} error 
      * @returns {Error}
      */
     static failAction = async (request?: Request, reply?: ResponseToolkit, error?: Error) => {
@@ -17,8 +18,8 @@ class ResponseUtil {
 
     /**
      * 
-     * @param responsePayload 
-     * @param reply 
+     * @param {ResponsePayload} responsePayload 
+     * @param {ResponseToolkit} reply 
      * @returns {ResponseObject}
      */
     static sendResponse = (responsePayload: ResponsePayload, reply: ResponseToolkit): ResponseObject => {
@@ -32,8 +33,8 @@ class ResponseUtil {
 
     /**
      * 
-     * @param responsePayload 
-     * @param reply 
+     * @param {any} responsePayload 
+     * @param {ResponseToolkit} reply 
      * @returns {ResponseObject}
      */
     static sendRawResponse = (responsePayload: any, reply: ResponseToolkit): ResponseObject => {
@@ -42,8 +43,8 @@ class ResponseUtil {
 
     /**
      * 
-     * @param responsePayload 
-     * @param reply 
+     * @param {any} responsePayload 
+     * @param {ResponseToolkit} reply 
      * @returns {ResponseObject}
      */
     static sendImageResponse = (responsePayload: any, reply: ResponseToolkit): ResponseObject => {
@@ -52,8 +53,8 @@ class ResponseUtil {
 
     /**
      * 
-     * @param responsePayload 
-     * @param reply 
+     * @param {ResponsePayload} responsePayload 
+     * @param {ResponseToolkit} reply 
      * @returns {ResponseObject}
      */
     static sendResponseWithCookie = (responsePayload: ResponsePayload, reply: ResponseToolkit): ResponseObject => {

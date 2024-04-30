@@ -1,9 +1,19 @@
 class Util {
-    static joinEndPoint = (...args: Array<string>) => {
+    /**
+     * 
+     * @param {Array<string>} args 
+     * @returns {String}
+     */
+    static joinEndPoint = (...args: Array<string>): string => {
         return args.join()
     }
 
-    static toNumber = (value: any) => {
+    /**
+     * 
+     * @param {any} value 
+     * @returns {Number}
+     */
+    static toNumber = (value: any): number => {
         return Number(value)
     }
 }

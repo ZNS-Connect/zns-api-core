@@ -1,7 +1,5 @@
-// ** import external libraries
-import axios from "axios"
-// ** import external types
-import { AxiosResponse } from "axios"
+// ** import external libraries & types
+import axios, { AxiosResponse } from "axios"
 
 class GraphQLHelper {
     uri: string // GraphQL server base URI

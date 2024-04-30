@@ -21,6 +21,11 @@ class DataController {
         return { data: payload }
     }
 
+    /**
+     * 
+     * @param {RequestPayload} payload 
+     * @returns {Promise<Metadata>}
+     */
     static getMetadata = async (payload: RequestPayload): Promise<Metadata> => {
         try {
             const { chain, id } = payload
@@ -47,6 +52,13 @@ class DataController {
         }
     }
 
+    /**
+     * 
+     * @param {String} domain 
+     * @param {String} tld 
+     * @param {Number} chain 
+     * @returns {String}
+     */
     static getImage = (domain: string, tld: string, chain: number): string => {
         try {
             let fontSize = 0

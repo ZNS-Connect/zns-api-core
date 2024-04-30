@@ -12,7 +12,12 @@ class ZnsRegistry {
         this.contract = new ethers.Contract(address, ABI.ZNS_REGISTRY, this.provider)
     }
 
-    tokenURI = async (tokenID: number) => {
+    /**
+     * 
+     * @param {Number} tokenID 
+     * @returns {Promise<string>}
+     */
+    tokenURI = async (tokenID: number): Promise<string> => {
         try {
             const tokenURI = await this.contract.tokenURI(tokenID)
     
@@ -23,6 +28,11 @@ class ZnsRegistry {
         }
     }
 
+    /**
+     * 
+     * @param {Number} tokenID 
+     * @returns {Promise<string>}
+     */
     itToDomain = async (tokenID: number): Promise<string> => {
         try {
             const domain = await this.contract.idToDomain(tokenID)
@@ -33,6 +43,10 @@ class ZnsRegistry {
         }
     }
 
+    /**
+     * 
+     * @returns {Promise<string>}
+     */
     tld = async (): Promise<string> => {
         try {
             const tld = await this.contract.tld()
