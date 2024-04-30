@@ -1,44 +1,36 @@
-# 👷‍♂️🚧 This project is under construction 🚧👷‍♂️ 
-
-# Hapi.js and typescript scaffolding 
- @[formysister](https://formysister.github.io) love [hapi.js](https://www.hapi.dev). If you haven't used this beautiful, scalable and carefully crafted framework for real world application, you should check it out!
-
-This is our official starter kit which has been tested in our production and passed all the scalability, performance and reliability expectations.
+# 👷‍♂️🚧 ZNSConnect API 🚧👷‍♂️ 
 
 ## Getting started
-
 
 ### Prerequisites
 
 Clone this repo.
-```
-git clone https://github.com/formysister/typescript-hapi-boilerplate.git`
+```shell
+git clone https://github.com/ZNS-Connect/zns-api-core.git
 ```
 
 ### Installation
 
 install dependencies
-```js
+```shell
 npm install
 ```
 
 ### Usage
 
 To run locally for development
-```node
-npm run dev
+```shell
+npm start
 ```
 
 To build a bundled transpiled javascript app
-```node
+```shell
 npm run build
 ```
 
 You should see the output in your terminal:
 ```
-# npm run dev
-
-> hapi-typescript-boilerplate@1.0.0 dev /Users/alex/Documents/projects/typescript-hapi-boilerplate
+# npm start
 > nodemon
 
 [nodemon] 2.0.2
@@ -47,23 +39,6 @@ You should see the output in your terminal:
 [nodemon] watching extensions: ts
 [nodemon] starting `ts-node ./main.ts`
 Server running at: http://mypc.local:3000
-```
-
-### Running tests (using Jest)
-
-```node
-npm t
-```
-
-Running tests in watch mode along with coverage
-```node
-npm run test:watch
-```
-
-**OR** without coverage
-
-```node
-npm run test -- --watch
 ```
 
 ### Deployment
@@ -75,7 +50,7 @@ Build the bundle: leveraging webpack, we can compile our code and bundle it toge
 npm run bundle
 ```
 
-Above script will produce `dist` folder that contains your compiled application. you can now simply `node ./dist/main.js` or use `pm2` as your process manager `pm2 start ./dist/main.js`
+Above script will produce `dist` folder that contains your compiled application. you can now simply `node ./dist/index.js` or use `pm2` as your process manager `pm2 start ./dist/index.js`
 
 
 #### Docker
@@ -91,12 +66,9 @@ In progress.
  - [x] Configure basic structure
  - [x] `Typescript`
  - [x] `@Hapi/hapi` v19
- - [x] `Webpack`
- - [x] `Jest` configuration
  - [x] LICENSE
  - [x] Folder structure
  - [ ] `supertest` integration
- - [ ] Write example test with `jest` and `supertest`
  - [x] Write Dockerfile
  - [ ] Write docker-compose.yml file
  - [ ] Write `FAQ`
@@ -114,7 +86,4 @@ In progress.
 # Support
 Use any of the following medium for support:
 
-- Raise a ticket on [github](https://github.com/formysister/typescript-hapi-boilerplate/issues)
-- Reach me on my email (in package.json)
-- Reach me on my linkedin.
-- Reach on [portfolio website](https://formysister.github.io) and ask for me on chat(Shold be used as rarely as possible!)
+- Raise a ticket on [github](https://github.com/ZNS-Connect/zns-api-core/issues)
