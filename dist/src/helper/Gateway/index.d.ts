@@ -2,14 +2,14 @@ import { Request } from "@hapi/hapi";
 declare class GatewayHelper {
     /**
      *
-     * @param ipAddress
+     * @param {String} ipAddress
      * @returns {Promise<IpDetail>} ipDetail
      */
     static getIpDetail: (ipAddress: string) => Promise<any>;
     /**
      *
-     * @param request
-     * @param targetIp
+     * @param {Request} request
+     * @param {String} targetIp
      * @returns {Boolean}
      */
     static filterIpAddress: (request: Request, targetIp: string) => boolean;

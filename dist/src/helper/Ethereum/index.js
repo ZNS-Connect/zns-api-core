@@ -27,7 +27,7 @@ EthereumHelper.encodeABIParams = (types, values) => {
 };
 /**
  *
- * @param {String}value
+ * @param {String} value
  * @returns {String}
  */
 EthereumHelper.encodeBytes32String = (value) => {

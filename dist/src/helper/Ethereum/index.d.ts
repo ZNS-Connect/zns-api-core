@@ -15,7 +15,7 @@ declare class EthereumHelper {
     static encodeABIParams: (types: string[], values: any[]) => string;
     /**
      *
-     * @param {String}value
+     * @param {String} value
      * @returns {String}
      */
     static encodeBytes32String: (value: string) => string;

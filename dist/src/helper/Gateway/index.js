@@ -13,7 +13,7 @@ class GatewayHelper {
 _a = GatewayHelper;
 /**
  *
- * @param ipAddress
+ * @param {String} ipAddress
  * @returns {Promise<IpDetail>} ipDetail
  */
 GatewayHelper.getIpDetail = async (ipAddress) => {
@@ -27,8 +27,8 @@ GatewayHelper.getIpDetail = async (ipAddress) => {
 };
 /**
  *
- * @param request
- * @param targetIp
+ * @param {Request} request
+ * @param {String} targetIp
  * @returns {Boolean}
  */
 GatewayHelper.filterIpAddress = (request, targetIp) => {

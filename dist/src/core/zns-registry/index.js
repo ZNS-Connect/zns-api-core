@@ -6,6 +6,11 @@ const ethers_1 = require("ethers");
 const constant_1 = require("../../constant");
 class ZnsRegistry {
     constructor(rpcUrl, address) {
+        /**
+         *
+         * @param {Number} tokenID
+         * @returns {Promise<string>}
+         */
         this.tokenURI = async (tokenID) => {
             try {
                 const tokenURI = await this.contract.tokenURI(tokenID);
@@ -15,6 +20,11 @@ class ZnsRegistry {
                 throw error;
             }
         };
+        /**
+         *
+         * @param {Number} tokenID
+         * @returns {Promise<string>}
+         */
         this.itToDomain = async (tokenID) => {
             try {
                 const domain = await this.contract.idToDomain(tokenID);
@@ -24,6 +34,10 @@ class ZnsRegistry {
                 throw error;
             }
         };
+        /**
+         *
+         * @returns {Promise<string>}
+         */
         this.tld = async () => {
             try {
                 const tld = await this.contract.tld();

@@ -7,7 +7,19 @@ declare class DataController {
      * @returns {ResponsePayload}
      */
     static checkResponse: (payload: RequestPayload) => ResponsePayload;
+    /**
+     *
+     * @param {RequestPayload} payload
+     * @returns {Promise<Metadata>}
+     */
     static getMetadata: (payload: RequestPayload) => Promise<Metadata>;
+    /**
+     *
+     * @param {String} domain
+     * @param {String} tld
+     * @param {Number} chain
+     * @returns {String}
+     */
     static getImage: (domain: string, tld: string, chain: number) => string;
 }
 export default DataController;

@@ -6,9 +6,9 @@ class ResponseUtil {
 _a = ResponseUtil;
 /**
  *
- * @param request
- * @param reply
- * @param error
+ * @param {Request} request
+ * @param {ResponseToolkit} reply
+ * @param {Error} error
  * @returns {Error}
  */
 ResponseUtil.failAction = async (request, reply, error) => {
@@ -16,8 +16,8 @@ ResponseUtil.failAction = async (request, reply, error) => {
 };
 /**
  *
- * @param responsePayload
- * @param reply
+ * @param {ResponsePayload} responsePayload
+ * @param {ResponseToolkit} reply
  * @returns {ResponseObject}
  */
 ResponseUtil.sendResponse = (responsePayload, reply) => {
@@ -30,8 +30,8 @@ ResponseUtil.sendResponse = (responsePayload, reply) => {
 };
 /**
  *
- * @param responsePayload
- * @param reply
+ * @param {any} responsePayload
+ * @param {ResponseToolkit} reply
  * @returns {ResponseObject}
  */
 ResponseUtil.sendRawResponse = (responsePayload, reply) => {
@@ -39,8 +39,8 @@ ResponseUtil.sendRawResponse = (responsePayload, reply) => {
 };
 /**
  *
- * @param responsePayload
- * @param reply
+ * @param {any} responsePayload
+ * @param {ResponseToolkit} reply
  * @returns {ResponseObject}
  */
 ResponseUtil.sendImageResponse = (responsePayload, reply) => {
@@ -48,8 +48,8 @@ ResponseUtil.sendImageResponse = (responsePayload, reply) => {
 };
 /**
  *
- * @param responsePayload
- * @param reply
+ * @param {ResponsePayload} responsePayload
+ * @param {ResponseToolkit} reply
  * @returns {ResponseObject}
  */
 ResponseUtil.sendResponseWithCookie = (responsePayload, reply) => {

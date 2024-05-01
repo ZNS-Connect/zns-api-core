@@ -23,6 +23,11 @@ _a = DataController;
 DataController.checkResponse = (payload) => {
     return { data: payload };
 };
+/**
+ *
+ * @param {RequestPayload} payload
+ * @returns {Promise<Metadata>}
+ */
 DataController.getMetadata = async (payload) => {
     try {
         const { chain, id } = payload;
@@ -31,7 +36,7 @@ DataController.getMetadata = async (payload) => {
         const tld = await znsRegistry.tld();
         const metadata = {
             name: domain,
-            description: "A domain on ZNS Connect Name Service",
+            description: constant_1.APP.DOMAIN_NFT_DESCRIPTION,
             image: _a.getImage(domain, tld, utils_1.Util.toNumber(chain)),
             length: domain.length
         };
@@ -41,6 +46,13 @@ DataController.getMetadata = async (payload) => {
         throw error;
     }
 };
+/**
+ *
+ * @param {String} domain
+ * @param {String} tld
+ * @param {Number} chain
+ * @returns {String}
+ */
 DataController.getImage = (domain, tld, chain) => {
     try {
         let fontSize = 0;
