@@ -1,5 +1,6 @@
 // ** import external libraries
 import base64 from "base-64"
+import aws from 'aws-sdk'
 // ** import custom type
 import { ResponsePayload, RequestPayload } from "../../types"
 // ** import custom utils
@@ -19,6 +20,64 @@ class DataController {
      */
     static checkResponse = (payload: RequestPayload): ResponsePayload => {
         return { data: payload }
+    }
+
+    /**
+     * 
+     * @param {RequestPayload} payload 
+     * @returns {Promise<unknown>}
+     */
+    static createMetadata = async (payload: RequestPayload): Promise<unknown> => {
+        try {
+            const { chain, id } = payload
+
+            aws.config.update({
+                region: APP.AWS_REGION,
+                credentials: {
+                    accessKeyId: process.env.AWS_ACCESS_KEY,
+                    secretAccessKey: process.env.AWS_SECRET_KEY
+                },
+                correctClockSkew: true
+            })
+
+            const znsRegistry = new ZnsRegistry(
+                ONCHAIN_CONFIG.CHAIN_TO_RPC[chain],
+                ONCHAIN_CONFIG.CHAIN_TO_ADDRESS[chain].ZNS_REGISTRY
+            )
+
+            const domain = await znsRegistry.itToDomain(id)
+            const tld = await znsRegistry.tld()
+
+            const metadata: Metadata = {
+                name: domain,
+                description: APP.DOMAIN_NFT_DESCRIPTION,
+                image: this.getImage(domain, tld,chain),
+                length: domain.length
+            }
+
+            const s3 = new aws.S3({
+                apiVersion: APP.S3_BUCKET_VERSION,
+                params: { Bucket: APP.S3_BUCKET_NAME }
+            })
+
+            const options = { partSize: APP.S3_FILE_LIMIT, queueSize: APP.S3_QUEUE_SIZE }
+            const params = { Bucket: APP.S3_BUCKET_NAME, Key: `${chain}/${id}`, Body: JSON.stringify(metadata) }
+
+            return new Promise((resolve, reject) => {
+                s3.upload(params, options).send((error, data) => {
+                    if(error) {
+                        console.error(error)
+                        reject(error)
+                    }
+                    
+                    resolve(data)
+                })
+            })
+        }
+        catch(error) {
+            console.error(error)
+            throw error
+        }
     }
 
     /**

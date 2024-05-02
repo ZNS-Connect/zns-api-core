@@ -12,7 +12,7 @@ import { GatewayHelper } from '../../../helper'
 import { ResponseUtil } from '../../../utils'
 
 // ** import app constants
-import { METHOD, VERSION, ENDPOINT } from '../../../constant'
+import { METHOD, VERSION, ENDPOINT, GLOBAL_API } from '../../../constant'
 
 const PUBLIC_ROUTER: Hapi.ServerRoute[] = [
     /**
@@ -53,15 +53,9 @@ const PUBLIC_ROUTER: Hapi.ServerRoute[] = [
         method: METHOD.GET,
         path: VERSION.V1 + ENDPOINT.GET.METADATA,
         options: {
-            handler: async (request, reply) => {
-                try {
-                    const response = await DataController.getMetadata(request.params)
-
-                    return ResponseUtil.sendRawResponse(response, reply)
-                }
-                catch(error) {
-                    throw error
-                }
+            handler: (request, reply) => {
+                const { chain, id } = request.params
+                return reply.redirect(`${GLOBAL_API.S3_BASE_URL}/${chain}/${id}`)
             },
             description: 'API for fetching metadata from tokenID',
             notes: 'Hit the endpoint to get token metadata',
