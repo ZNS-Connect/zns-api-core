@@ -50,9 +50,14 @@ const PUBLIC_ROUTER = [
         method: constant_1.METHOD.GET,
         path: constant_1.VERSION.V1 + constant_1.ENDPOINT.GET.METADATA,
         options: {
-            handler: (request, reply) => {
-                const { chain, id } = request.params;
-                return reply.redirect(`${constant_1.GLOBAL_API.S3_BASE_URL}/${chain}/${id}`);
+            handler: async (request, reply) => {
+                try {
+                    const response = await controller_1.DataController.getMetadata(request.params);
+                    return utils_1.ResponseUtil.sendRawResponse(response, reply);
+                }
+                catch (error) {
+                    throw error;
+                }
             },
             description: 'API for fetching metadata from tokenID',
             notes: 'Hit the endpoint to get token metadata',

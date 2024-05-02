@@ -6,11 +6,12 @@ import { ResponsePayload, RequestPayload } from "../../types"
 // ** import custom utils
 import { Util } from "../../utils"
 // ** import custom constanats
-import { ONCHAIN_CONFIG, APP } from "../../constant"
+import { ONCHAIN_CONFIG, APP, GLOBAL_API } from "../../constant"
 // ** import custom libraries
 import { ZnsRegistry } from "../../core"
 // ** import custom types
 import { Metadata } from "../../types"
+import axios from "axios"
 
 class DataController {
     /**
@@ -89,22 +90,9 @@ class DataController {
         try {
             const { chain, id } = payload
 
-            const znsRegistry = new ZnsRegistry(
-                ONCHAIN_CONFIG.CHAIN_TO_RPC[Util.toNumber(chain)],
-                ONCHAIN_CONFIG.CHAIN_TO_ADDRESS[Util.toNumber(chain)].ZNS_REGISTRY
-            )
+            const response = await axios.get(`${GLOBAL_API.S3_BASE_URL}/${chain}/${id}`)
 
-            const domain = await znsRegistry.itToDomain(Util.toNumber(id))
-            const tld = await znsRegistry.tld()
-
-            const metadata: Metadata = {
-                name: domain,
-                description: APP.DOMAIN_NFT_DESCRIPTION,
-                image: this.getImage(domain, tld, Util.toNumber(chain)),
-                length: domain.length
-            }
-
-            return metadata
+            return response.data
         }
         catch (error) {
             throw error

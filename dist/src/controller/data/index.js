@@ -13,6 +13,7 @@ const utils_1 = require("../../utils");
 const constant_1 = require("../../constant");
 // ** import custom libraries
 const core_1 = require("../../core");
+const axios_1 = __importDefault(require("axios"));
 class DataController {
 }
 _a = DataController;
@@ -78,16 +79,8 @@ DataController.createMetadata = async (payload) => {
 DataController.getMetadata = async (payload) => {
     try {
         const { chain, id } = payload;
-        const znsRegistry = new core_1.ZnsRegistry(constant_1.ONCHAIN_CONFIG.CHAIN_TO_RPC[utils_1.Util.toNumber(chain)], constant_1.ONCHAIN_CONFIG.CHAIN_TO_ADDRESS[utils_1.Util.toNumber(chain)].ZNS_REGISTRY);
-        const domain = await znsRegistry.itToDomain(utils_1.Util.toNumber(id));
-        const tld = await znsRegistry.tld();
-        const metadata = {
-            name: domain,
-            description: constant_1.APP.DOMAIN_NFT_DESCRIPTION,
-            image: _a.getImage(domain, tld, utils_1.Util.toNumber(chain)),
-            length: domain.length
-        };
-        return metadata;
+        const response = await axios_1.default.get(`${constant_1.GLOBAL_API.S3_BASE_URL}/${chain}/${id}`);
+        return response.data;
     }
     catch (error) {
         throw error;
