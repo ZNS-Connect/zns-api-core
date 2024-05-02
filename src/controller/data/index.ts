@@ -49,6 +49,7 @@ class DataController {
             const domain = await znsRegistry.itToDomain(id)
             const tld = await znsRegistry.tld()
 
+
             const metadata: Metadata = {
                 name: domain,
                 description: APP.DOMAIN_NFT_DESCRIPTION,

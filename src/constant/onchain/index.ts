@@ -18,7 +18,7 @@ const ONCHAIN_CONFIG: ConfigType = {
     },
     CHAIN_TO_ADDRESS: {
         56: {
-            ZNS_REGISTRY: '0xeC253c53921031E7718b8a0a307aA4204B0DcF33'
+            ZNS_REGISTRY: '0x7e2CF06F092c9F5cF5972eF021635b6c8E1C5bb2'
         }
     },
     CHAIN_TO_COLOR: {
