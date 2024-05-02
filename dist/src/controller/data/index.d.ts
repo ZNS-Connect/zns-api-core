@@ -10,6 +10,12 @@ declare class DataController {
     /**
      *
      * @param {RequestPayload} payload
+     * @returns {Promise<unknown>}
+     */
+    static createMetadata: (payload: RequestPayload) => Promise<unknown>;
+    /**
+     *
+     * @param {RequestPayload} payload
      * @returns {Promise<Metadata>}
      */
     static getMetadata: (payload: RequestPayload) => Promise<Metadata>;

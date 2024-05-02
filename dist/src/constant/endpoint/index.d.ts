@@ -7,6 +7,7 @@ declare const ENDPOINT: {
     };
     POST: {
         DEFAULT: string;
+        CREATE_METADATA: string;
     };
 };
 export default ENDPOINT;

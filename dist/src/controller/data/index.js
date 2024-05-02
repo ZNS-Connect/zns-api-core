@@ -6,6 +6,7 @@ var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 // ** import external libraries
 const base_64_1 = __importDefault(require("base-64"));
+const aws_sdk_1 = __importDefault(require("aws-sdk"));
 // ** import custom utils
 const utils_1 = require("../../utils");
 // ** import custom constanats
@@ -22,6 +23,52 @@ _a = DataController;
  */
 DataController.checkResponse = (payload) => {
     return { data: payload };
+};
+/**
+ *
+ * @param {RequestPayload} payload
+ * @returns {Promise<unknown>}
+ */
+DataController.createMetadata = async (payload) => {
+    try {
+        const { chain, id } = payload;
+        aws_sdk_1.default.config.update({
+            region: constant_1.APP.AWS_REGION,
+            credentials: {
+                accessKeyId: process.env.AWS_ACCESS_KEY,
+                secretAccessKey: process.env.AWS_SECRET_KEY
+            },
+            correctClockSkew: true
+        });
+        const znsRegistry = new core_1.ZnsRegistry(constant_1.ONCHAIN_CONFIG.CHAIN_TO_RPC[chain], constant_1.ONCHAIN_CONFIG.CHAIN_TO_ADDRESS[chain].ZNS_REGISTRY);
+        const domain = await znsRegistry.itToDomain(id);
+        const tld = await znsRegistry.tld();
+        const metadata = {
+            name: domain,
+            description: constant_1.APP.DOMAIN_NFT_DESCRIPTION,
+            image: _a.getImage(domain, tld, chain),
+            length: domain.length
+        };
+        const s3 = new aws_sdk_1.default.S3({
+            apiVersion: constant_1.APP.S3_BUCKET_VERSION,
+            params: { Bucket: constant_1.APP.S3_BUCKET_NAME }
+        });
+        const options = { partSize: constant_1.APP.S3_FILE_LIMIT, queueSize: constant_1.APP.S3_QUEUE_SIZE };
+        const params = { Bucket: constant_1.APP.S3_BUCKET_NAME, Key: `${chain}/${id}`, Body: JSON.stringify(metadata) };
+        return new Promise((resolve, reject) => {
+            s3.upload(params, options).send((error, data) => {
+                if (error) {
+                    console.error(error);
+                    reject(error);
+                }
+                resolve(data);
+            });
+        });
+    }
+    catch (error) {
+        console.error(error);
+        throw error;
+    }
 };
 /**
  *
