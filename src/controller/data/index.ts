@@ -49,11 +49,12 @@ class DataController {
             const domain = await znsRegistry.itToDomain(id)
             const tld = await znsRegistry.tld()
 
+            const image = this.getImage(domain, tld, chain)
 
             const metadata: Metadata = {
                 name: domain,
                 description: APP.DOMAIN_NFT_DESCRIPTION,
-                image: this.getImage(domain, tld,chain),
+                image,
                 length: domain.length
             }
 
@@ -132,6 +133,20 @@ class DataController {
             </text></svg>`
 
             return "data:image/svg+xml;base64," + base64.encode(svgCode)
+
+            const options = { partSize: APP.S3_FILE_LIMIT, queueSize: APP.S3_QUEUE_SIZE }
+            const params = { Bucket: APP.S3_BUCKET_NAME, Key: `${Date.now()}.svg`, Body: "data:image/svg+xml;base64," + base64.encode(svgCode) }
+
+            // return new Promise((resolve, reject) => {
+            //     s3.upload(params, options).send((error, data) => {
+            //         if(error) {
+            //             console.error(error)
+            //             reject(error)
+            //         }
+                    
+            //         resolve(data.Location)
+            //     })
+            // })
         }
         catch (error) {
             throw error
