@@ -1,4 +1,6 @@
 // ** import external libraries
+import fs from 'fs'
+import { createCanvas, loadImage, registerFont } from 'canvas'
 import base64 from "base-64"
 import aws from 'aws-sdk'
 // ** import custom type
@@ -29,6 +31,8 @@ class DataController {
      * @returns {Promise<unknown>}
      */
     static createMetadata = async (payload: RequestPayload): Promise<unknown> => {
+        console.log("Create metadata")
+
         try {
             const { chain, id } = payload
 
@@ -49,7 +53,7 @@ class DataController {
             const domain = await znsRegistry.itToDomain(id)
             const tld = await znsRegistry.tld()
 
-            const image = this.getImage(domain, tld, chain)
+            const image = await this.getImage(domain, tld, chain)
 
             const metadata: Metadata = {
                 name: domain,
@@ -108,7 +112,8 @@ class DataController {
      * @param {Number} chain 
      * @returns {String}
      */
-    static getImage = (domain: string, tld: string, chain: number): string => {
+    static getImage = async (domain: string, tld: string, chain: number): Promise<string> => {
+        console.log(__dirname)
         try {
             let fontSize = 0
 
@@ -121,6 +126,24 @@ class DataController {
             else fontSize = 60;
 
             const networkColor = ONCHAIN_CONFIG.CHAIN_TO_COLOR[Util.toNumber(chain)]
+            const imageWidth = 1000, imageHeight = 1000;
+            const background  = await loadImage(`src/assets/image/${chain}.png`)
+            registerFont("src/assets/font/airstrip.ttf", { family: "Airstrip" })
+            const canvas = createCanvas(imageWidth, imageHeight)
+            const ctx = canvas.getContext("2d")
+
+            ctx.drawImage(background, 0, 0, imageWidth, imageHeight)
+            ctx.textBaseline = "middle"
+            ctx.textAlign = "center"
+            ctx.font = `${fontSize}px "Airstrip"`
+
+            ctx.fillStyle = ONCHAIN_CONFIG.CHAIN_TO_COLOR[Util.toNumber(chain)]
+            ctx.fillText(domain, 500, (imageHeight / 2) - (fontSize / 2))
+
+            ctx.font = `250px "Airstrip"`
+            ctx.fillText(`.${tld}`, 500, imageHeight - 300)
+
+            const dataUrl = canvas.toDataURL()
 
             const svgCode =
                 `<svg width="160" height="160" viewBox="0 0 1000 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -132,7 +155,7 @@ class DataController {
             <text x="50%" y="55%" text-anchor="middle" font-size="${fontSize}" fill="${networkColor}" font-weight="bold" font-family="Futura">${domain}
             </text></svg>`
 
-            return "data:image/svg+xml;base64," + base64.encode(svgCode)
+            return dataUrl
 
             const options = { partSize: APP.S3_FILE_LIMIT, queueSize: APP.S3_QUEUE_SIZE }
             const params = { Bucket: APP.S3_BUCKET_NAME, Key: `${Date.now()}.svg`, Body: "data:image/svg+xml;base64," + base64.encode(svgCode) }
