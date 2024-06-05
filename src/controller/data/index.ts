@@ -52,7 +52,6 @@ class DataController {
 
       const domain = await znsRegistry.itToDomain(id);
       const tld = await znsRegistry.tld();
-      console.log(tld, "--- tid ---");
 
       const image = await this.getImage(domain, tld, chain);
 
@@ -183,7 +182,6 @@ class DataController {
     tld: string,
     chain: number
   ): Promise<string> => {
-    console.log(__dirname);
     try {
       let fontSize = 0;
 
@@ -198,7 +196,9 @@ class DataController {
       const networkColor = ONCHAIN_CONFIG.CHAIN_TO_COLOR[Util.toNumber(chain)];
       const imageWidth = 1000,
         imageHeight = 1000;
-      const background = await loadImage(`src/assets/image/${chain}.png`);
+      const background = await loadImage(
+        `src/assets/image/${chain}_${domain.length > 5 ? 6 : domain.length}.png`
+      );
       registerFont("src/assets/font/airstrip.ttf", { family: "Airstrip" });
       const canvas = createCanvas(imageWidth, imageHeight);
       const ctx = canvas.getContext("2d");
@@ -209,10 +209,42 @@ class DataController {
       ctx.font = `${fontSize}px "Airstrip"`;
 
       ctx.fillStyle = ONCHAIN_CONFIG.CHAIN_TO_COLOR[Util.toNumber(chain)];
-      ctx.fillText(domain, 500, imageHeight / 2 - fontSize / 2);
 
-      ctx.font = `250px "Airstrip"`;
-      ctx.fillText(`.${tld}`, 500, imageHeight - 300);
+      if (domain.length > 15) {
+        const wrapText = (context, text, x, y, maxWidth, lineHeight) => {
+          let line = "";
+          let yPosition = y;
+          for (let i = 0; i < text.length; i++) {
+            const testLine = line + text[i];
+            const metrics = context.measureText(testLine);
+            const testWidth = metrics.width;
+            if (testWidth > maxWidth && line.length > 0) {
+              context.fillText(line, x, yPosition);
+              line = text[i];
+              yPosition += lineHeight;
+            } else {
+              line = testLine;
+            }
+          }
+          context.fillText(line, x, yPosition);
+        };
+
+        const maxTextWidth = 500;
+        const lineHeight = fontSize + 10;
+        const textX = 500;
+        const textY =
+          imageHeight -
+          280 -
+          fontSize * (domain.length > 15 || domain.length <= 30 ? 2 : 3) +
+          (domain.length > 15 || domain.length <= 30 ? 10 : 40);
+
+        wrapText(ctx, domain, textX, textY, maxTextWidth, lineHeight);
+      } else {
+        ctx.fillText(domain, 500, imageHeight - 280 - fontSize / 2, 700);
+      }
+
+      ctx.font = `normal 80px "Airstrip"`;
+      ctx.fillText(`.${tld}`, 500, imageHeight - 180 - 40);
 
       const dataUrl = canvas.toDataURL();
 
