@@ -197,7 +197,9 @@ class DataController {
       const imageWidth = 1000,
         imageHeight = 1000;
       const background = await loadImage(
-        `src/assets/image/${chain}_${domain.length > 5 ? 6 : domain.length}.png`
+        `src/assets/image/${chain}_${
+          tld == "poly" ? "poly_" : domain.length > 5 ? 6 : domain.length
+        }.png`
       );
       registerFont("src/assets/font/airstrip.ttf", { family: "Airstrip" });
       const canvas = createCanvas(imageWidth, imageHeight);
