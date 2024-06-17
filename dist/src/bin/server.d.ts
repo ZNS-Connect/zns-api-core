@@ -1,4 +1,4 @@
-import 'dotenv/config';
+import "dotenv/config";
 declare class Server {
     init: () => Promise<void>;
 }

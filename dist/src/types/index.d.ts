@@ -44,9 +44,14 @@ export type IpDetail = {
     asn: string;
     org: string;
 };
+export type Attribute = {
+    trait_type: string;
+    value: string | number | Date;
+};
 export type Metadata = {
     name: string;
     description: string;
     image: string;
     length: number;
+    attributes: Attribute[];
 };

@@ -26,6 +26,6 @@ declare class DataController {
      * @param {Number} chain
      * @returns {String}
      */
-    static getImage: (domain: string, tld: string, chain: number) => string;
+    static getImage: (domain: string, tld: string, chain: number) => Promise<string>;
 }
 export default DataController;

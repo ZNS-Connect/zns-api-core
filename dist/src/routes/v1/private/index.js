@@ -30,13 +30,13 @@ const PRIVATE_ROUTER = [
                 failAction: utils_1.ResponseUtil.failAction,
                 payload: joi_1.default.object({
                     chain: joi_1.default.number().required(),
-                    id: joi_1.default.number().required()
-                })
+                    id: joi_1.default.number().required(),
+                }),
             },
-            description: 'API base default public endpoints (POST)',
-            notes: 'Hit the endpoint to check if server is alive',
-            tags: ['baseurl', 'default', 'check api status']
-        }
-    }
+            description: "API base default public endpoints (POST)",
+            notes: "Hit the endpoint to check if server is alive",
+            tags: ["baseurl", "default", "check api status"],
+        },
+    },
 ];
 exports.default = PRIVATE_ROUTER;

@@ -23,8 +23,8 @@ class Server {
                     port: process.env.PORT,
                     host: process.env.HOST,
                     routes: {
-                        cors: true
-                    }
+                        cors: true,
+                    },
                 };
                 // create new server
                 const server = new hapi_1.default.Server(serverOption);
@@ -34,7 +34,7 @@ class Server {
                 await server.views({
                     engines: { html: handlebars_1.default },
                     relativeTo: __dirname,
-                    path: path_1.default.join(__dirname, '../views')
+                    path: path_1.default.join(__dirname, "../views"),
                 });
                 // set routes
                 await server.route(routes_1.ROUTER_V1);
@@ -43,20 +43,20 @@ class Server {
                     method: constant_1.METHOD.GET,
                     path: constant_1.ENDPOINT.GET.DEFAULT,
                     handler: async (request, reply) => {
-                        return reply.view('index');
-                    }
+                        return reply.view("index");
+                    },
                 });
                 // set event listener
-                server.events.on('request', (request) => {
+                server.events.on("request", (request) => {
                     console.log(`API HIT (request): ${request.url}`);
                 });
-                server.events.on('response', (request) => {
+                server.events.on("response", (request) => {
                     console.log(`API HIT (response): ${request.url}`);
                 });
                 // start server
                 await server.start();
                 // print server endpoint
-                console.log('Server is running on %s', server.info.uri);
+                console.log("Server is running on %s", server.info.uri);
             }
             catch (error) {
                 // print error and force exit process
