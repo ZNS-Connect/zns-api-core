@@ -35,6 +35,7 @@ const ONCHAIN_CONFIG: ConfigType = {
   },
   CHAIN_TO_COLOR: {
     56: "#ffffff",
+    97: "#ffffff",
     137: "#8247E5",
     534352: "#ffffff",
   },
