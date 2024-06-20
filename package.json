@@ -5,6 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "start": "node ./dist/index.js",
+    "create": "ts-node ./scripts/create.ts",
     "dev": "nodemon",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -21,7 +22,7 @@
     "aws-sdk": "^2.1611.0",
     "axios": "^1.6.7",
     "base-64": "^1.0.0",
-    "canvas": "^2.11.2",
+    "canvas": "^2.10.2",
     "dotenv": "^16.3.1",
     "ethers": "^6.11.1",
     "handlebars": "^4.7.8",
