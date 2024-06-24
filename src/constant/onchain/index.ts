@@ -18,7 +18,8 @@ const ONCHAIN_CONFIG: ConfigType = {
         97: "https://bsc-testnet-rpc.publicnode.com",
         137: "https://polygon-mainnet.infura.io/v3/254f726a173649a896fe0d63ab2085b9",
         534352: "https://scroll.blockpi.network/v1/rpc/public",
-        167000: "https://rpc.ankr.com/taiko"
+        167000: "https://rpc.ankr.com/taiko",
+        31337: "http://127.0.0.1:8545"
     },
     CHAIN_TO_ADDRESS: {
         56: {
@@ -32,6 +33,9 @@ const ONCHAIN_CONFIG: ConfigType = {
         },
         534352: {
             ZNS_REGISTRY: "0xB00910Bac7DA44c0D440798809dbF8d51FDBb635",
+        },
+        31337: {
+            ZNS_REGISTRY: "0x5FbDB2315678afecb367f032d93F642f64180aa3"
         }
     },
     CHAIN_TO_COLOR: {
