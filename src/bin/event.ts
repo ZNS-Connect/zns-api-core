@@ -21,7 +21,7 @@ class MintEventListener {
         }
 
         this.contract.on("MintedDomain", async (domainName, tokenId, owner, expiry) => {
-            const data = { chain: this.chainId, id: tokenId }
+            const data = { chain: this.chainId, id: Number(tokenId) }
             try {
                 const res = await axios.post('http://127.0.0.1:8000/v1/create-metadata', data)
                 console.log(res.data)

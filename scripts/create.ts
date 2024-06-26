@@ -14,18 +14,44 @@ async function main() {
     
     const missed: Array<number> = []
 
-    for await(const id of totalMinted) {
-        try {
-            const data = { chain: chainId, id: Number(id) }
-            const res = await axios.post(endpoint, data)
+    const LAST_SUCCESSED_ID = 2986
 
-            console.log(res.data)
+    for await(const id of totalMinted) {
+        if(Number(id) <= LAST_SUCCESSED_ID) {
+            console.log("Token id-", Number(id), "skipped")
+            continue
         }
-        catch(error) {
-            console.log(error)
-            missed.push(Number(id))
-            continue;
+        else {
+            try {
+                const data = { chain: chainId, id: Number(id) }
+                const res = await axios.post(endpoint, data)
+    
+                console.log(res.data)
+            }
+            catch(error) {
+                console.log(error)
+                missed.push(Number(id))
+                continue;
+            }
         }
+
+        // try {
+        //     await axios.get(`https://api.znsconnect.io/v1/metadata/${chainId}/${Number(id)}`)
+        //     console.log("Token ID:", Number(id), "is okay")
+        // }
+        // catch(_) {
+        //     try {
+        //         const data = { chain: chainId, id: Number(id) }
+        //         const res = await axios.post(endpoint, data)
+    
+        //         console.log(res.data)
+        //     }
+        //     catch(error) {
+        //         console.log(error)
+        //         missed.push(Number(id))
+        //         continue;
+        //     }
+        // }
     }
     console.log(missed)
 }
