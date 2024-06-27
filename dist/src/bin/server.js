@@ -13,6 +13,8 @@ const path_1 = __importDefault(require("path"));
 const routes_1 = require("../routes");
 // ** import app constants
 const constant_1 = require("../constant");
+// ** import app
+const event_1 = __importDefault(require("./event"));
 class Server {
     constructor() {
         // initialize Hapi server
@@ -57,6 +59,7 @@ class Server {
                 await server.start();
                 // print server endpoint
                 console.log("Server is running on %s", server.info.uri);
+                await new event_1.default().mountAll();
             }
             catch (error) {
                 // print error and force exit process

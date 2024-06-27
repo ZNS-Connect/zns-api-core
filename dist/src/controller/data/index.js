@@ -31,7 +31,6 @@ DataController.checkResponse = (payload) => {
  * @returns {Promise<unknown>}
  */
 DataController.createMetadata = async (payload) => {
-    console.log("Create metadata");
     try {
         const { chain, id } = payload;
         aws_sdk_1.default.config.update({
@@ -100,6 +99,10 @@ DataController.createMetadata = async (payload) => {
                 trait_type: "Registration Date",
                 value: new Date().toISOString(),
             },
+            {
+                trait_type: "Type",
+                value: domain.length <= 2 ? "Premium" : "Standard",
+            }
         ];
         const metadata = {
             name: domain,
@@ -220,7 +223,9 @@ DataController.getImage = async (domain, tld, chain) => {
         }
         ctx.font = `normal 80px "Airstrip"`;
         ctx.fillText(`.${tld}`, 500, imageHeight - 180 - 40);
+        // const dataUrl = canvas.toDataURL();
         const dataUrl = canvas.toDataURL();
+        // return `<img width="400px" height="400px" src="${dataUrl}"/>`;
         return dataUrl;
         const svgCode = `<svg width="160" height="160" viewBox="0 0 1000 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#a)"><path fill="#000" d="M0 0h1000v1000H0z"/>

@@ -108,6 +108,10 @@ class DataController {
                     trait_type: "Registration Date",
                     value: new Date().toISOString(),
                 },
+                {
+                    trait_type: "Type",
+                    value: domain.length <= 2 ? "Premium" : "Standard",
+                }
             ];
 
             const metadata: Metadata = {
