@@ -52,7 +52,7 @@ class DataController {
             const domain = await znsRegistry.itToDomain(id);
             const tld = await znsRegistry.tld();
 
-            const image = await this.getImage(domain, tld, chain);
+            const image = await this.getImage(domain, tld, chain, id);
 
             const getStringType = (name: string) => {
                 const letterRegex = /^[A-Za-z]+$/;
@@ -183,7 +183,8 @@ class DataController {
     static getImage = async (
         domain: string,
         tld: string,
-        chain: number
+        chain: number,
+        id: number
     ): Promise<string> => {
         try {
             let fontSize = 0;
@@ -250,19 +251,13 @@ class DataController {
             ctx.fillText(`.${tld}`, 500, imageHeight - 180 - 40);
 
             // const dataUrl = canvas.toDataURL();
-            const dataUrl = canvas.toDataURL()
+            const dataUrl = canvas.toDataURL("image/png")
 
-            // return `<img width="400px" height="400px" src="${dataUrl}"/>`;
-            return dataUrl
-
-            const svgCode = `<svg width="160" height="160" viewBox="0 0 1000 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g clip-path="url(#a)"><path fill="#000" d="M0 0h1000v1000H0z"/>
-            <path d="M1000 885c-178.771 139.55-551.222 50.439-1000 0v115h1000zM0 115c178.771-139.552 551.222-50.44 1000 0V0H0z" fill="${networkColor}"/>
-            <circle cx="50%" cy="180" r="70" fill="${networkColor}"/>
-            <text x="50%" y="200" text-anchor="middle" font-size="60" fill="#000" font-weight="bold" font-family="Futura">ZNS</text>
-            <text x="50%" y="755" font-size="100" text-anchor="middle" fill="${networkColor}" font-weight="bold" font-family="Futura">.${tld}</text></g>
-            <text x="50%" y="55%" text-anchor="middle" font-size="${fontSize}" fill="${networkColor}" font-weight="bold" font-family="Futura">${domain}
-            </text></svg>`;
+            // return dataUrl
+            const s3 = new aws.S3({
+                apiVersion: APP.S3_BUCKET_VERSION,
+                params: { Bucket: APP.S3_BUCKET_NAME },
+            });
 
             const options = {
                 partSize: APP.S3_FILE_LIMIT,
@@ -271,19 +266,14 @@ class DataController {
 
             const params = {
                 Bucket: APP.S3_BUCKET_NAME,
-                Key: `${Date.now()}.svg`,
-                Body: "data:image/svg+xml;base64," + base64.encode(svgCode),
+                Key: `images/${chain}/${id}.png`,
+                Body: dataUrl,
+                ContentType: "application/json", // Set the correct MIME type
             };
 
-            // return new Promise((resolve, reject) => {
-            //     s3.upload(params, options).send((error, data) => {
-            //         if(error) {
-            //             console.error(error)
-            //             reject(error)
-            //         }
-            //         resolve(data.Location)
-            //     })
-            // })
+            const response = await s3.upload(params, options).promise()
+
+            return response.Location
         } catch (error) {
             throw error;
         }

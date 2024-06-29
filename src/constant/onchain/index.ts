@@ -32,15 +32,15 @@ const ONCHAIN_CONFIG: ConfigType = {
         137: {
             ZNS_REGISTRY: "0x8ccd9c0a9c084412416a85fd748c7f1e9b86442d",
         },
+        31337: {
+            ZNS_REGISTRY: "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+        },
         81457: {
             ZNS_REGISTRY: "0x59b9ac688e39a14b938ac8c3269db66d8adb9af6",
         },
         534352: {
             ZNS_REGISTRY: "0xB00910Bac7DA44c0D440798809dbF8d51FDBb635",
         },
-        31337: {
-            ZNS_REGISTRY: "0x5FbDB2315678afecb367f032d93F642f64180aa3"
-        }
     },
     CHAIN_TO_COLOR: {
         56: "#ffffff",

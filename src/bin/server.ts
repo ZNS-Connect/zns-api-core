@@ -67,7 +67,7 @@ class Server {
             // print server endpoint
             console.log("Server is running on %s", server.info.uri);
 
-            await new ZNSEventListener().mountAll()
+            // await new ZNSEventListener().mountAll()
         } catch (error) {
             // print error and force exit process
             console.error(error);

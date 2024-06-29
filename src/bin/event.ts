@@ -44,7 +44,7 @@ class MintEventListener {
 
 export default class ZNSEventListener {
     constructor() {
-        
+
     }
 
     mountBscMainnet = async () => {
@@ -103,7 +103,7 @@ export default class ZNSEventListener {
         try {
             await this.mountBscMainnet()
             await this.mountScrollMainnet()
-            await this.mountPolygonMainnet()
+            // await this.mountPolygonMainnet()
         }
         catch(error) {
             console.error(error)
