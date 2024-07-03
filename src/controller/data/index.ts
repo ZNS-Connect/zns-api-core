@@ -251,7 +251,13 @@ class DataController {
             ctx.fillText(`.${tld}`, 500, imageHeight - 180 - 40);
 
             const dataUrl = canvas.toDataURL();
+            const base64Data = dataUrl.replace(/^data:image\/png;base64,/, '');
+            const buffer = Buffer.from(base64Data, 'base64')
+            // const temp_url = 'src/assets/temp/temp.png'
+
+            // fs.writeFileSync(temp_url, buffer)
             // const dataUrl = canvas.toDataURL("image/png")
+            // const file = fs.readFileSync(temp_url)
 
             // return dataUrl
             const s3 = new aws.S3({
@@ -266,9 +272,9 @@ class DataController {
 
             const params = {
                 Bucket: APP.S3_BUCKET_NAME,
-                Key: `images/${chain}/${id}`,
-                Body: dataUrl,
-                ContentType: "application/json", // Set the correct MIME type
+                Key: `images/${chain}/${id}.png`,
+                Body: buffer,
+                ContentType: "image/png", // Set the correct MIME type
             };
 
             const response = await s3.upload(params, options).promise()
