@@ -250,8 +250,8 @@ class DataController {
             ctx.font = `normal 80px "Airstrip"`;
             ctx.fillText(`.${tld}`, 500, imageHeight - 180 - 40);
 
-            // const dataUrl = canvas.toDataURL();
-            const dataUrl = canvas.toDataURL("image/png")
+            const dataUrl = canvas.toDataURL();
+            // const dataUrl = canvas.toDataURL("image/png")
 
             // return dataUrl
             const s3 = new aws.S3({
@@ -266,7 +266,7 @@ class DataController {
 
             const params = {
                 Bucket: APP.S3_BUCKET_NAME,
-                Key: `images/${chain}/${id}.png`,
+                Key: `images/${chain}/${id}`,
                 Body: dataUrl,
                 ContentType: "application/json", // Set the correct MIME type
             };

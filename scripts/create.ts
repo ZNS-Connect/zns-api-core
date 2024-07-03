@@ -5,7 +5,7 @@ import ABI from "../src/constant/abi/index"
 import ONCHAIN_CONFIG from '../src/constant/onchain'
 
 async function main() {
-    const chainId = 137
+    const chainId = 81457
     const endpoint = 'http://127.0.0.1:8000/v1/create-metadata'
 
     const provider = new ethers.JsonRpcProvider(ONCHAIN_CONFIG.CHAIN_TO_RPC[chainId])
@@ -14,7 +14,7 @@ async function main() {
     
     const missed: Array<number> = []
 
-    const LAST_SUCCESSED_ID = 0
+    const LAST_SUCCESSED_ID = 1899
 
     for await(const id of totalMinted) {
         if(Number(id) <= LAST_SUCCESSED_ID) {
