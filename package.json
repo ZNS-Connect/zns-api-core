@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node ./dist/index.js",
     "create": "ts-node ./scripts/create.ts",
+    "opensea": "ts-node ./scripts/opensea-refresh.ts",
     "dev": "nodemon",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -30,7 +31,8 @@
     "hapi-rate-limitor": "^3.1.2",
     "install": "^0.13.0",
     "mongoose": "^8.0.0",
-    "npm": "^6.14.6"
+    "npm": "^6.14.6",
+    "opensea-js": "^7.1.10"
   },
   "devDependencies": {
     "@types/hapi__hapi": "^19.0.0",
